@@ -40,6 +40,7 @@ export class PersonPageComponent implements OnInit {
     if (Number.isNaN(id) === false) {
       try {
         this.person$ = await this.service.getFirstForTree(id);
+        this.personLoaded$ = true;
       } catch (err) {
         alert('Um erro aconteceu. Tente novamente mais tarde.');
       }
