@@ -1,0 +1,13 @@
+<div class="search my-5">
+    <div class="row">
+        <form [formGroup]="formGroup" (ngSubmit)="onSubmit(form)">
+            <div class="form-group">
+                <label for="inputName">Nome</label>
+                <input type="text" class="form-control col-12" id="inputName" aria-describedby="nameHelp" required formControlName="name" [ngClass]="{ 'is-invalid': nameControl.invalid && (nameControl.dirty || nameControl.touched || attemptToSubmit)}">
+                <small id="nameHelp" class="form-text text-muted">Entre com o nome de uma pessoa para encontrar sua
+                    árvore genealógica</small>
+            </div>
+            <button type="submit" class="btn btn-primary">Pesquisar</button>
+        </form>
+    </div>
+</div>

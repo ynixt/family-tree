@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
-import Person from 'src/app/shared/person';
+import Person from 'src/app/pages/person-page/person';
 
 @Injectable({
   providedIn: 'root'

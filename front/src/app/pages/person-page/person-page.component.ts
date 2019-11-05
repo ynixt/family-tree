@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation , OnInit } from '@angular/core';
 
-import Person from 'src/app/shared/person';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import Person from 'src/app/pages/person-page/person';
+import { ActivatedRoute } from '@angular/router';
 import { PersonPageService } from './person-page.service';
 
 

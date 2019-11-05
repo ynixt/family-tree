@@ -1,0 +1,10 @@
+<div class="container">
+    <app-search [model]="search"></app-search>
+
+    <div class="results card-columns" *ngIf="persons.length > 0">
+        <app-person *ngFor="let person of persons" [person]="person"></app-person>
+    </div>
+    <div class="results" *ngIf="persons.length === 0">
+        <h3>Não foi encontrado nenhuma pessoa para essa pesquisa</h3>
+    </div>
+</div>

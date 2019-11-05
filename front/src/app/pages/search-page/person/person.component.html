@@ -1,0 +1,17 @@
+<div class="card">
+    <a class="person" routerLink="/f/{{person.familyId}}">
+        <span class="name">{{person.name}}</span>
+        <div class="parents">
+            <span class="info">
+                Filho de:
+            </span>
+            <ul *ngIf="person.father != null || person.mother != null">
+                <li *ngIf="person.father != null" class="f-name">{{person.father}}</li>
+                <li *ngIf="person.mother != null" class="m-name">{{person.mother}}</li>
+            </ul>
+            <ul *ngIf="person.father == null && person.mother == null">
+                <li class="f-name">Não informado</li>
+            </ul>
+        </div>
+    </a>
+</div>

@@ -1,0 +1,14 @@
+.person {
+    display: block;
+    min-height: 96px;
+    padding: 10px;
+
+    color: black;
+
+    &:hover {
+        -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+
+        text-decoration: none;
+	}
+}
