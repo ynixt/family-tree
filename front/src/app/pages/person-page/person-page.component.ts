@@ -35,6 +35,18 @@ export class PersonPageComponent implements OnInit {
 
   private async loadPerson() {
     this.personLoaded$ = false;
+
+    this.route.data.subscribe(data => {
+      if (data.new === true) {
+        this.person$ = this.newPerson({}, {});
+        this.personLoaded$ = true;
+      } else {
+        this.loadPersonById();
+      }
+    });
+  }
+
+  private async loadPersonById() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
 
     if (Number.isNaN(id) === false) {
@@ -45,6 +57,15 @@ export class PersonPageComponent implements OnInit {
         alert('Um erro aconteceu. Tente novamente mais tarde.');
       }
     }
+  }
+
+  private newPerson(father: Person, mother: Person, spouse?: Person) {
+    return {
+      name: 'Desconhecido',
+      father: father,
+      mother: mother,
+      spouse: spouse
+    };
   }
 
 }

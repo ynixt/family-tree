@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SearchComponent } from './components/search/search.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { SearchComponent } from './components/search/search.component';
     SearchComponent,
   ],
   imports: [
-    CommonModule,
+	CommonModule,
+	RouterModule,
     CollapseModule.forRoot(),
     ModalModule.forRoot(),
     FormsModule,

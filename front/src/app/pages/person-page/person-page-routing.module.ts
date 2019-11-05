@@ -4,6 +4,7 @@ import { PersonPageComponent } from './person-page.component';
 
 
 const routes: Routes = [
+  { path: 'new', component: PersonPageComponent, data: { new: true } },
   { path: ':id', component: PersonPageComponent },
 ];
 

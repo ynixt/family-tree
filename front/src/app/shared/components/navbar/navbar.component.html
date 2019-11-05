@@ -1,6 +1,6 @@
 <nav class='navbar navbar-expand-md navbar-light bg-light'>
     <div class='container'>
-        <a class='navbar-brand' href='/' rel='home'>Árvore genealógica</a>
+        <a class='navbar-brand' routerLink='/' rel='home'>Árvore genealógica</a>
         <button class='navbar-toggler' type='button' (click)='isCollapsed = !isCollapsed'
             aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Alterar navegação'>
             <i class="fas fa-bars"></i>
@@ -9,7 +9,10 @@
         <div class='collapse navbar-collapse' id='navbarSupportedContent' [collapse]='isCollapsed'>
             <ul class='navbar-nav ml-auto'>
                 <li class='nav-item'>
-                    <a class='nav-link' href='/'>Início</a>
+                    <a class='nav-link' routerLink='/'>Início</a>
+                </li>
+                <li class='nav-item'>
+					<a class='nav-link' routerLink='/f/new'>Cadastrar nova árvore</a>
                 </li>
             </ul>
         </div>
