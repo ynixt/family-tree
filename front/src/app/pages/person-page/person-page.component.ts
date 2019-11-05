@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation , OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 
 import Person from 'src/app/pages/person-page/person';
 import { ActivatedRoute } from '@angular/router';
@@ -15,14 +15,9 @@ export class PersonPageComponent implements OnInit {
 
   private person$: Person;
   private personLoaded$ = false;
-  private parent$: Person;
 
   get person(): Person {
     return this.person$;
-  }
-
-  get parent(): Person {
-    return this.parent$;
   }
 
   get personLoaded(): boolean {
@@ -43,18 +38,12 @@ export class PersonPageComponent implements OnInit {
     const id = Number(this.route.snapshot.paramMap.get('id'));
 
     if (Number.isNaN(id) === false) {
-      this.person$ = await this.service.getFirstForTree(id);
-      this.parent$ = this.getParent(this.person$)
-      this.personLoaded$ = true;
+      try {
+        this.person$ = await this.service.getFirstForTree(id);
+      } catch (err) {
+        alert('Um erro aconteceu. Tente novamente mais tarde.');
+      }
     }
-  }
-
-  private getParent(person: Person): Person {
-    if (person != null) {
-
-    }
-
-    return null;
   }
 
 }

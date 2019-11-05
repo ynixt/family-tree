@@ -36,6 +36,7 @@ export class SearchPageComponent implements OnInit {
       this.persons = await this.service.query(name);
     } catch (err) {
       this.persons = [];
+      alert('Um erro aconteceu. Tente novamente mais tarde.');
     }
   }
 }
