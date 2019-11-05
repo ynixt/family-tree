@@ -14,3 +14,5 @@ alter table person add foreign key (family_id) references family (id);
 alter table person add foreign key (father_id) references person (id);
 alter table person add foreign key (mother_id) references person (id);
 alter table person add foreign key (spouse_id) references person (id);
+
+create index name on person (name);
