@@ -3,6 +3,7 @@ package com.unkapps.family.tree.resource;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +21,13 @@ public class PersonResource {
 	private PersonService personService;
 
 	@GetMapping(path = "/fromFamily/{familyId}", produces = "application/json")
+	@Transactional(readOnly = true)
 	public @ResponseBody List<PersonDto> get(@PathVariable(required = true) Long familyId) {
 		return this.personService.getFamilyTreeOf(familyId);
 	}
 	
 	@GetMapping(path = "/{name}", produces = "application/json")
+	@Transactional(readOnly = true)
 	public @ResponseBody List<PersonSonOfDto> get(@PathVariable(required = true) String name) {
 		return this.personService.query(name);
 	}
