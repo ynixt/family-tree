@@ -29,7 +29,8 @@ export class PersonComponent implements OnInit {
   }
 
   public remove(includeChildrens) {
-    if (this.person.father.ghost && this.person.father.childrens.length < 2 || !includeChildrens) {
+    if (this.person.father.ghost && this.person.father.childrens.length < 2 ||
+      this.person.childrens && this.person.childrens.length > 0 && !includeChildrens) {
       this.service.resetPerson(this.person, includeChildrens);
     } else {
       this.removed.emit(this.person);
