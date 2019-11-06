@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CollapseModule } from 'ngx-bootstrap/collapse';
-import { ModalModule } from 'ngx-bootstrap/modal';
+import { CollapseModule, BsDropdownModule  } from 'ngx-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -14,16 +13,16 @@ import { RouterModule } from '@angular/router';
     SearchComponent,
   ],
   imports: [
-	CommonModule,
-	RouterModule,
+    CommonModule,
+    RouterModule,
+    BsDropdownModule.forRoot(),
     CollapseModule.forRoot(),
-    ModalModule.forRoot(),
     FormsModule,
     ReactiveFormsModule
   ],
   exports: [
+    BsDropdownModule,
     CollapseModule,
-    ModalModule,
     NavbarComponent,
     SearchComponent,
   ]

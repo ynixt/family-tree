@@ -15,6 +15,6 @@ export default interface Person {
     fatherId?: number;
     motherId?: number;
     father?: Person;
-	mother?: Person;
-	tempId?: Date;
+    mother?: Person;
+    tempId?: Date;
 }

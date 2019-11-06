@@ -1,0 +1,30 @@
+<div class="actions">
+    <div class="btn-group position-relative" dropdown *ngIf="showAdd == true">
+        <button title="Adicionar pessoa" class="btn btn-outline-dark" dropdownToggle><i
+                class="fas fa-plus"></i></button>
+        <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-animated">
+            <li role="menuitem"><a class="dropdown-item" (click)="actionAdd.newChildren()">Novo filho</a></li>
+            <li role="menuitem"><a class="dropdown-item" (click)="actionAdd.newSpouse()"
+                    *ngIf="person.spouse == null">Nova esposa</a></li>
+            <li role="menuitem"><a class="dropdown-item" (click)="actionAdd.newFather()"
+                    *ngIf="person.father.ghost == true">Novo pai</a></li>
+            <li role="menuitem"><a class="dropdown-item" (click)="actionAdd.newMother()"
+                    *ngIf="person.mother.ghost == true">Nova mãe</a></li>
+            <li role="menuitem"><a class="dropdown-item" (click)="actionAdd.newBrother()">Novo irmão</a></li>
+        </ul>
+    </div>
+
+    <button title="Remover pessoa" class="btn btn-outline-dark" (mousedown)="removeFunction()"
+        *ngIf="canRemoveChildrens == false || person.childrens == null || person.childrens.length == 0"><i
+            class="fas fa-trash"></i></button>
+
+    <div class="btn-group position-relative" dropdown
+        *ngIf="canRemoveChildrens == true && person.childrens != null && person.childrens.length > 0">
+        <button title="Remover pessoa" class="btn btn-outline-dark" dropdownToggle><i class="fas fa-trash"></i></button>
+        <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-animated">
+            <li role="menuitem"><a class="dropdown-item" (click)="removeFunction()">Remover pessoa</a></li>
+            <li role="menuitem"><a class="dropdown-item" (click)="removeFunction(true)">Remover pessoa e seus filhos</a>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -5,12 +5,15 @@ import { DragScrollModule } from 'ngx-drag-scroll';
 import { PersonPageRoutingModule } from './person-page-routing.module';
 import { PersonPageComponent } from './person-page.component';
 import { PersonComponent } from './person/person.component';
+import { ActionButtonsComponent } from './person/action-buttons/action-buttons.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
-  declarations: [PersonPageComponent, PersonComponent],
+  declarations: [PersonPageComponent, PersonComponent, ActionButtonsComponent],
   imports: [
     CommonModule,
+    SharedModule,
     DragScrollModule,
     PersonPageRoutingModule
   ]

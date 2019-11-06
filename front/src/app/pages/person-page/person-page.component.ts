@@ -38,7 +38,7 @@ export class PersonPageComponent implements OnInit {
 
     this.route.data.subscribe(data => {
       if (data.new === true) {
-        this.person$ = this.service.newPerson({}, {});
+        this.person$ = this.service.newPerson({}, {}, true);
         this.personLoaded$ = true;
       } else {
         this.loadPersonById();

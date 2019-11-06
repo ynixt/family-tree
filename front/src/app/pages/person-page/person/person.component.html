@@ -1,23 +1,23 @@
 <li *ngIf="!person.ghost">
     <div class="person">
-
         <div class="family">
             <p>
-                <input class="name" type='text' [(value)]="person.name"/>
-                <span class="gender">:{{person.male ? 'M' : 'F'}}</span>
+                <input class="name" type='text' [(value)]="person.name" />
+                <select class="gender" [(value)]="person.male">
+                    <option value="true">M</option>
+                    <option value="false">F</option>
+                </select>
             </p>
             <p class="details">
                 <span *ngIf="person.birth != null">{{person.birth | date:'dd/MM/yyyy'}}</span>
                 <span *ngIf="person.birth == null">*</span>
                 <span *ngIf="person.death != null"> - {{person.death | date:'dd/MM/yyyy'}}</span>
-			</p>
-			<div class="actions">
-				<button title="Adicionar pessoa" class="btn btn-outline-dark"><i class="fas fa-plus"></i></button>
-				<button title="Remover pessoa" class="btn btn-outline-dark" (mousedown)="remove()"><i class="fas fa-trash"></i></button>
-			</div>
+            </p>
+            <app-action-buttons [removeFunction]="remove.bind(this)" [person]="person" [actionAdd]="actionAdd">
+            </app-action-buttons>
         </div>
-        <span *ngIf="person.spouse != null" class="spacer"></span>
-        <div *ngIf="person.spouse != null" class="outsider">
+        <span *ngIf="person.spouse != null && !person.spouse.ghost" class="spacer"></span>
+        <div *ngIf="person.spouse != null  && !person.spouse.ghost" class="outsider">
             <p>
                 <span>{{person.spouse.name}}</span>
                 <span class="gender">:{{person.spouse.male ? 'M' : 'F'}}</span>
@@ -26,18 +26,19 @@
                 <span *ngIf="person.spouse.birth != null">{{person.spouse.birth | date:'dd/MM/yyyy'}}</span>
                 <span *ngIf="person.spouse.birth == null">*</span>
                 <span *ngIf="person.spouse.death != null"> - {{person.spouse.death | date:'dd/MM/yyyy'}}</span>
-			</p>
-			<div class="actions">
-				<button title="Remover pessoa" class="btn btn-outline-dark" (mousedown)="removeSpouse()"><i class="fas fa-trash"></i></button>
-			</div>
-		</div>
+            </p>
+            <app-action-buttons showAdd="false" canRemoveChildrens="false" [removeFunction]="removeSpouse.bind(this)" [person]="person.spouse">
+            </app-action-buttons>
+        </div>
     </div>
 
-    <ul *ngIf="person.childrens != null && person.childrens.length > 0">
-        <app-person (removed)="childrenRemoved($event)" *ngFor="let children of person.childrens" [person]="children"></app-person>
+    <ul class="childrens" *ngIf="person.childrens != null && person.childrens.length > 0">
+        <app-person (removed)="childrenRemoved($event)" *ngFor="let children of person.childrens" [person]="children">
+        </app-person>
     </ul>
 </li>
 
 <ng-container *ngIf="person.ghost">
-    <app-person (removed)="childrenRemoved($event)" *ngFor="let children of person.childrens" [person]="children"></app-person>
+    <app-person (removed)="childrenRemoved($event)" *ngFor="let children of person.childrens" [person]="children">
+    </app-person>
 </ng-container>
