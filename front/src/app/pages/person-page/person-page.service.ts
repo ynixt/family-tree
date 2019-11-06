@@ -8,16 +8,22 @@ import Person from 'src/app/pages/person-page/person';
   providedIn: 'root'
 })
 export class PersonPageService {
-  private url = `${environment.serverUrl}p/`;
+	private url = `${environment.serverUrl}p/`;
 
   constructor(
     private http: HttpClient,
   ) {
   }
 
-  private getPersonsOfFamily(idFamily: number): Promise<Person[]> {
-    return this.http.get<Person[]>(`${this.url}fromFamily/${idFamily}`).toPromise();
-  }
+	private async getPersonsOfFamily(idFamily: number): Promise<Person[]> {
+		const persons = await this.http.get<Person[]>(`${this.url}fromFamily/${idFamily}`).toPromise();
+
+		for (let person of persons) {
+			person.tempId = new Date();
+		}
+
+		return persons;
+	}
 
   async getFirstForTree(idFamily: number): Promise<Person> {
     const persons: Person[] = await this.getPersonsOfFamily(idFamily);
@@ -80,5 +86,15 @@ export class PersonPageService {
     }
 
     return height;
+	}
+	
+  public newPerson(father: Person, mother: Person, spouse?: Person): Person {
+    return {
+      name: 'Desconhecido',
+      father: father,
+      mother: mother,
+	  spouse: spouse,
+	  tempId: new Date()
+    } as Person;
   }
 }

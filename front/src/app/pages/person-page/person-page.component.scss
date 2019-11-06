@@ -84,7 +84,7 @@
 
                     .person {
                         border: 1px solid #ccc;
-                        padding: 5px 10px;
+                        padding: 3px 10px;
                         text-decoration: none;
                         color: #666;
                         font-family: arial, verdana, tahoma;
@@ -97,7 +97,28 @@
                         -moz-border-radius: 5px;
                         transition: all 0.5s;
                         -webkit-transition: all 0.5s;
-                        -moz-transition: all 0.5s;
+						-moz-transition: all 0.5s;
+
+						.actions {
+							font-size: 10px;
+							position: absolute;
+							bottom: 0px;
+							right: 0px;
+							color: white;
+
+							.btn {
+								padding: .125rem .25rem;
+								font-size: .6rem;
+								line-height: .75;
+								border-radius: .1rem;
+
+								border: none;
+
+								&:hover {
+									border: none;
+								}
+							}
+						}
 
                         p {
                             margin-bottom: 0;
@@ -115,7 +136,20 @@
                             padding: 10px;
                             border-radius: 5px;
                             -webkit-border-radius: 5px;
-                            -moz-border-radius: 5px;
+							-moz-border-radius: 5px;
+							position: relative;
+							
+							.name {
+								background: none;
+								border: none;
+
+								&:focus {
+									outline: none !important;
+									border:1px solid white;
+									box-shadow: 0 0 10px white;
+									padding: 0 2px;
+								}
+							}
                         }
 
                         .outsider {
@@ -124,7 +158,8 @@
                             padding: 10px;
                             border-radius: 5px;
                             -webkit-border-radius: 5px;
-                            -moz-border-radius: 5px;
+							-moz-border-radius: 5px;
+							position: relative;
                         }
 
                         .spacer {

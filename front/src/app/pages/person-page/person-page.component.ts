@@ -38,7 +38,7 @@ export class PersonPageComponent implements OnInit {
 
     this.route.data.subscribe(data => {
       if (data.new === true) {
-        this.person$ = this.newPerson({}, {});
+        this.person$ = this.service.newPerson({}, {});
         this.personLoaded$ = true;
       } else {
         this.loadPersonById();
@@ -58,14 +58,4 @@ export class PersonPageComponent implements OnInit {
       }
     }
   }
-
-  private newPerson(father: Person, mother: Person, spouse?: Person) {
-    return {
-      name: 'Desconhecido',
-      father: father,
-      mother: mother,
-      spouse: spouse
-    };
-  }
-
 }

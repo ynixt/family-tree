@@ -3,14 +3,18 @@
 
         <div class="family">
             <p>
-                <span>{{person.name}}</span>
+                <input class="name" type='text' [(value)]="person.name"/>
                 <span class="gender">:{{person.male ? 'M' : 'F'}}</span>
             </p>
             <p class="details">
                 <span *ngIf="person.birth != null">{{person.birth | date:'dd/MM/yyyy'}}</span>
                 <span *ngIf="person.birth == null">*</span>
                 <span *ngIf="person.death != null"> - {{person.death | date:'dd/MM/yyyy'}}</span>
-            </p>
+			</p>
+			<div class="actions">
+				<button title="Adicionar pessoa" class="btn btn-outline-dark"><i class="fas fa-plus"></i></button>
+				<button title="Remover pessoa" class="btn btn-outline-dark" (mousedown)="remove()"><i class="fas fa-trash"></i></button>
+			</div>
         </div>
         <span *ngIf="person.spouse != null" class="spacer"></span>
         <div *ngIf="person.spouse != null" class="outsider">
@@ -22,15 +26,18 @@
                 <span *ngIf="person.spouse.birth != null">{{person.spouse.birth | date:'dd/MM/yyyy'}}</span>
                 <span *ngIf="person.spouse.birth == null">*</span>
                 <span *ngIf="person.spouse.death != null"> - {{person.spouse.death | date:'dd/MM/yyyy'}}</span>
-            </p>
-        </div>
+			</p>
+			<div class="actions">
+				<button title="Remover pessoa" class="btn btn-outline-dark" (mousedown)="removeSpouse()"><i class="fas fa-trash"></i></button>
+			</div>
+		</div>
     </div>
 
     <ul *ngIf="person.childrens != null && person.childrens.length > 0">
-        <app-person *ngFor="let children of person.childrens" [person]="children"></app-person>
+        <app-person (removed)="childrenRemoved($event)" *ngFor="let children of person.childrens" [person]="children"></app-person>
     </ul>
 </li>
 
 <ng-container *ngIf="person.ghost">
-    <app-person *ngFor="let children of person.childrens" [person]="children"></app-person>
+    <app-person (removed)="childrenRemoved($event)" *ngFor="let children of person.childrens" [person]="children"></app-person>
 </ng-container>
