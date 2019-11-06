@@ -11,6 +11,7 @@ import ActionAdd from './action-buttons/action-add';
 export class PersonComponent implements OnInit {
   @Input() person: Person;
   @Output() removed = new EventEmitter<Person>();
+  @Output() parentAdded = new EventEmitter<Person>();
 
   public actionAdd: ActionAdd = {
     newFather: this.newFather.bind(this),
@@ -28,13 +29,9 @@ export class PersonComponent implements OnInit {
   }
 
   public remove(includeChildrens) {
-    if (this.person.father.ghost && this.person.father.childrens.length < 2) {
+    if (this.person.father.ghost && this.person.father.childrens.length < 2 || !includeChildrens) {
       this.service.resetPerson(this.person, includeChildrens);
     } else {
-      if (includeChildrens) {
-        this.person.childrens = [];
-      }
-
       this.removed.emit(this.person);
     }
   }
@@ -62,6 +59,8 @@ export class PersonComponent implements OnInit {
     person.father.mother = this.service.newGhostPerson(true, undefined);
     person.father.father = this.service.newGhostPerson(true, person.father.mother);
     person.father.father.childrens = [person.father];
+
+    this.parentAdded.emit(person.father);
   }
   private newMother(person = this.person) {
     person.mother.ghost = false;

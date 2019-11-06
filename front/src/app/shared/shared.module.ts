@@ -25,6 +25,8 @@ import { RouterModule } from '@angular/router';
     CollapseModule,
     NavbarComponent,
     SearchComponent,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule { }

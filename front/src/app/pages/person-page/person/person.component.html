@@ -2,8 +2,8 @@
     <div class="person">
         <div class="family">
             <p>
-                <input class="name" type='text' [(value)]="person.name" />
-                <select class="gender" [(value)]="person.male">
+                <input class="name" type='text' [(ngModel)]="person.name" />
+                <select class="gender" [(ngModel)]="person.male">
                     <option value="true">M</option>
                     <option value="false">F</option>
                 </select>
@@ -19,7 +19,7 @@
         <span *ngIf="person.spouse != null && !person.spouse.ghost" class="spacer"></span>
         <div *ngIf="person.spouse != null  && !person.spouse.ghost" class="outsider">
             <p>
-                <span>{{person.spouse.name}}</span>
+                <input class="name" type='text' [(ngModel)]="person.spouse.name" />
                 <span class="gender">:{{person.spouse.male ? 'M' : 'F'}}</span>
             </p>
             <p class="details">

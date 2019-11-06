@@ -58,4 +58,8 @@ export class PersonPageComponent implements OnInit {
       }
     }
   }
+
+  public firstForTreeChanged(person) {
+    this.person$ = person;
+  }
 }

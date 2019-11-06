@@ -7,7 +7,7 @@
                     <drag-scroll class="tree-wrapper">
                         <div class="tree">
                             <ul class="childrens">
-                                <app-person [person]="person"></app-person>
+                                <app-person [person]="person" (parentAdded)="firstForTreeChanged($event)"></app-person>
                             </ul>
                         </div>
                     </drag-scroll>

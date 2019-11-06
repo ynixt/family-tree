@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable, NgZone } from '@angular/core';
+import { HttpClient, } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
 import Person from 'src/app/pages/person-page/person';
@@ -14,13 +14,14 @@ export class PersonPageService {
 
   constructor(
     private http: HttpClient,
+    public zone: NgZone,
   ) {
   }
 
   private async getPersonsOfFamily(idFamily: number): Promise<Person[]> {
     const persons = await this.http.get<Person[]>(`${this.url}fromFamily/${idFamily}`).toPromise();
 
-    for (let person of persons) {
+    for (const person of persons) {
       person.tempId = new Date();
     }
 
