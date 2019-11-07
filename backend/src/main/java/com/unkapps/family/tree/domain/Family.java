@@ -19,12 +19,12 @@ import lombok.Setter;
 @Setter
 public class Family extends Domain {
 	@Version
-	private long version;
+	private Long version;
 	
 	@OneToMany(mappedBy = "family", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Person> persons;
 
-	public Family(Long id, long version, Set<Person> persons) {
+	public Family(Long id, Long version, Set<Person> persons) {
 		setId(id);
 		this.version = version;
 		this.persons = persons;
