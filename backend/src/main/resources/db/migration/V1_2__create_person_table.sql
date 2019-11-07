@@ -4,7 +4,7 @@ create table person (
     male boolean not null,
     birth TIMESTAMP WITH TIME ZONE, 
     death TIMESTAMP WITH TIME ZONE, 
-    family_id bigint,
+    family_id bigint not null,
     father_id bigint,
     mother_id bigint,
     spouse_id bigint

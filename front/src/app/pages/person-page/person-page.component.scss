@@ -1,5 +1,6 @@
 .person-page {
     padding: 20px 0;
+    height: calc(100% - 75px);
 
     .tree-wrapper {
         width: 100%;
@@ -183,5 +184,13 @@
 
             }
         }
+    }
+
+
+    .btn-save {
+        position: fixed;
+        bottom: 15px;
+        right: 15px;
+        border-radius: 50%;
     }
 }

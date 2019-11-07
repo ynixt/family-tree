@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.unkapps.family.tree.dto.web.PersonDto;
 import com.unkapps.family.tree.dto.web.PersonSonOfDto;
 import com.unkapps.family.tree.service.PersonService;
 
@@ -19,12 +18,6 @@ import com.unkapps.family.tree.service.PersonService;
 public class PersonResource {
 	@Autowired
 	private PersonService personService;
-
-	@GetMapping(path = "/fromFamily/{familyId}", produces = "application/json")
-	@Transactional(readOnly = true)
-	public @ResponseBody List<PersonDto> get(@PathVariable(required = true) Long familyId) {
-		return this.personService.getFamilyTreeOf(familyId);
-	}
 	
 	@GetMapping(path = "/{name}", produces = "application/json")
 	@Transactional(readOnly = true)

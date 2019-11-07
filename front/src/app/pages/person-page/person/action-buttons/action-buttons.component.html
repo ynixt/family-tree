@@ -6,10 +6,8 @@
             <li role="menuitem"><a class="dropdown-item" (click)="actionAdd.newChildren()">Novo filho</a></li>
             <li role="menuitem"><a class="dropdown-item" (click)="actionAdd.newSpouse()"
                     *ngIf="person.spouse == null">Nova esposa</a></li>
-            <li role="menuitem"><a class="dropdown-item" (click)="actionAdd.newFather()"
-                    *ngIf="person.father.ghost == true">Novo pai</a></li>
-            <li role="menuitem"><a class="dropdown-item" (click)="actionAdd.newMother()"
-                    *ngIf="person.mother.ghost == true">Nova mãe</a></li>
+            <li role="menuitem"><a class="dropdown-item" (click)="actionAdd.newParent()"
+                    *ngIf="person.father.ghost == true || person.mother == null">Novo pai</a></li>
             <li role="menuitem"><a class="dropdown-item" (click)="actionAdd.newBrother()">Novo irmão</a></li>
         </ul>
     </div>

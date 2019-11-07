@@ -9,9 +9,7 @@ insert into person (id, family_id, name, birth, death, male, father_id) values (
 
 insert into person (id, family_id, name, birth, death, male, father_id) values (10, 1, 'Andressa P', '1930-12-05 10:00:00', '2000-01-02 10:00:00', false, 8);
 
-insert into person (id, family_id, male,) values (11, 1, true);
-
-insert into person (id, family_id, name, birth, death, male, father_id) values (13, 1, 'Andriel P', '1935-12-05 10:00:00', '2010-01-02 10:00:00', true, 11);
+insert into person (id, family_id, name, birth, death, male) values (13, 1, 'Andriel P', '1935-12-05 10:00:00', '2010-01-02 10:00:00', true);
 
 update person set spouse_id = 13 where id = 10;
 

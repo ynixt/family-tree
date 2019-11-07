@@ -25,8 +25,8 @@ import lombok.Setter;
 @Setter
 public class Person extends Domain {
 
-	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
+	@NotNull
 	private Family family;
 
 	@Column
@@ -65,4 +65,41 @@ public class Person extends Domain {
 
 	@Column(name = "spouse_id", insertable = false, updatable = false)
 	private Long spouseId;
+
+	public Person(@NotNull Long id, boolean male, @Size(max = 120) String name, ZonedDateTime birth,
+			ZonedDateTime death, Set<Person> childrens, Person spouse) {
+		setId(id);
+		this.male = male;
+		this.name = name;
+		this.birth = birth;
+		this.death = death;
+		this.childrens = childrens;
+		this.spouse = spouse;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("[");
+		if (getId() != null) {
+			sb.append("id=");
+			sb.append(getId());
+			sb.append(",");
+		}
+		if (getName() != null) {
+			sb.append("name=");
+			sb.append(getName());
+			sb.append(",");
+		}
+		if (getFamily() != null && getFamily().getId() != null) {
+			sb.append("family=");
+			sb.append(getFamily().getId());
+			sb.append(",");
+		}
+		sb.append("]");
+
+		return sb.toString();
+	}
+
 }

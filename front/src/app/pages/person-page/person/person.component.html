@@ -16,18 +16,22 @@
             <app-action-buttons [removeFunction]="remove.bind(this)" [person]="person" [actionAdd]="actionAdd">
             </app-action-buttons>
         </div>
-        <span *ngIf="person.spouse != null && !person.spouse.ghost" class="spacer"></span>
-        <div *ngIf="person.spouse != null  && !person.spouse.ghost" class="outsider">
+        <span *ngIf="person.spouse != null" class="spacer"></span>
+        <div *ngIf="person.spouse != null " class="outsider">
             <p>
                 <input class="name" type='text' [(ngModel)]="person.spouse.name" />
-                <span class="gender">:{{person.spouse.male ? 'M' : 'F'}}</span>
+                <select class="gender" [(ngModel)]="person.spouse.male">
+                    <option value="true">M</option>
+                    <option value="false">F</option>
+                </select>
             </p>
             <p class="details">
                 <span *ngIf="person.spouse.birth != null">{{person.spouse.birth | date:'dd/MM/yyyy'}}</span>
                 <span *ngIf="person.spouse.birth == null">*</span>
                 <span *ngIf="person.spouse.death != null"> - {{person.spouse.death | date:'dd/MM/yyyy'}}</span>
             </p>
-            <app-action-buttons showAdd="false" canRemoveChildrens="false" [removeFunction]="removeSpouse.bind(this)" [person]="person.spouse">
+            <app-action-buttons showAdd="false" canRemoveChildrens="false" [removeFunction]="removeSpouse.bind(this)"
+                [person]="person.spouse">
             </app-action-buttons>
         </div>
     </div>

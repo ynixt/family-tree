@@ -1,6 +1,10 @@
 package com.unkapps.family.tree.domain;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
 import lombok.AllArgsConstructor;
@@ -16,4 +20,13 @@ import lombok.Setter;
 public class Family extends Domain {
 	@Version
 	private long version;
+	
+	@OneToMany(mappedBy = "family", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Person> persons;
+
+	public Family(Long id, long version, Set<Person> persons) {
+		setId(id);
+		this.version = version;
+		this.persons = persons;
+	}
 }

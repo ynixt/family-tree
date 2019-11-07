@@ -21,7 +21,7 @@ public abstract class Domain {
 	@Override
 	public int hashCode() {
 		if (this.getId() == null) {
-			return this.hashCode();
+			return super.hashCode();
 		}
 
 		return this.getId().hashCode();

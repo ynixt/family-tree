@@ -1,18 +1,22 @@
-<div class="person-page h-100">
-    <div class="container h-100">
+<div class="person-page">
+    <div class="container h-100 position-relative">
         <div class="row h-100">
 
             <div class="col-12">
                 <div *ngIf="personLoaded" class="h-100">
-                    <drag-scroll class="tree-wrapper">
+                    <div class="tree-wrapper">
                         <div class="tree">
                             <ul class="childrens">
                                 <app-person [person]="person" (parentAdded)="firstForTreeChanged($event)"></app-person>
                             </ul>
                         </div>
-                    </drag-scroll>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <button title="Salvar" class="btn btn-lg btn-primary btn-save" (click)="save()">
+            <i class="fas fa-save"></i>
+        </button>
     </div>
 </div>

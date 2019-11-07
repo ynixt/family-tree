@@ -38,20 +38,20 @@ export class PersonPageComponent implements OnInit {
 
     this.route.data.subscribe(data => {
       if (data.new === true) {
-        this.person$ = this.service.newPerson({}, {}, true);
+        this.person$ = this.service.newPerson(null, null, true);
         this.personLoaded$ = true;
       } else {
-        this.loadPersonById();
+        this.loadPersonByFamilyId();
       }
     });
   }
 
-  private async loadPersonById() {
+  private async loadPersonByFamilyId() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
 
     if (Number.isNaN(id) === false) {
       try {
-        this.person$ = await this.service.getFirstForTree(id);
+        this.person$ = this.service.getFirstForTree(await this.service.getPersonsOfFamily(id));
         this.personLoaded$ = true;
       } catch (err) {
         alert('Um erro aconteceu. Tente novamente mais tarde.');
@@ -61,5 +61,14 @@ export class PersonPageComponent implements OnInit {
 
   public firstForTreeChanged(person) {
     this.person$ = person;
+  }
+
+  public async save() {
+    try {
+      this.person$ = this.service.getFirstForTree(await this.service.save());
+    } catch (err) {
+      console.log(err);
+      alert('Um erro aconteceu. Tente novamente mais tarde.');
+    }
   }
 }

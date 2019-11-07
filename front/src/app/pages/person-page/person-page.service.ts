@@ -3,6 +3,7 @@ import { HttpClient, } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
 import Person from 'src/app/pages/person-page/person';
+import Family from './family';
 
 export const defaultPersonName = 'Desconhecido';
 
@@ -10,7 +11,9 @@ export const defaultPersonName = 'Desconhecido';
   providedIn: 'root'
 })
 export class PersonPageService {
-  private url = `${environment.serverUrl}p/`;
+  private url = `${environment.serverUrl}f/`;
+  private personsByTempId: Map<Date, Person>;
+  private family: Family;
 
   constructor(
     private http: HttpClient,
@@ -18,22 +21,22 @@ export class PersonPageService {
   ) {
   }
 
-  private async getPersonsOfFamily(idFamily: number): Promise<Person[]> {
-    const persons = await this.http.get<Person[]>(`${this.url}fromFamily/${idFamily}`).toPromise();
+  public async getPersonsOfFamily(idFamily: number): Promise<Person[]> {
+    this.family = await this.http.get<Family>(`${this.url}${idFamily}`).toPromise();
 
-    for (const person of persons) {
+    if (this.family == null) {
+      throw new Error('not found');
+    }
+
+    for (const person of this.family.persons) {
       person.tempId = new Date();
     }
 
-    return persons;
+    return this.family.persons;
   }
 
-  async getFirstForTree(idFamily: number): Promise<Person> {
-    const persons: Person[] = await this.getPersonsOfFamily(idFamily);
-
-    if (persons.length === 0) {
-      throw new Error('not found');
-    }
+  public getFirstForTree(persons: Person[]): Person {
+    this.buildPersonsMap(persons);
 
     const personsById = new Map(
       persons.map(p => [p.id, p] as [number, Person])
@@ -76,7 +79,6 @@ export class PersonPageService {
     }).sort((p1, p2) => p2.height - p1.height)[0].person;
 
     ghost.ghost = true;
-    ghost.spouse.ghost = ghost.spouse.name === defaultPersonName;
 
     return ghost;
   }
@@ -102,12 +104,14 @@ export class PersonPageService {
   public newPerson(father: Person, mother: Person, male: boolean, spouse?: Person, ghost?: boolean): Person {
     if (mother === null) {
       mother = this.newPerson(undefined, undefined, true, undefined, true);
+      this.addPerson(mother);
     }
     if (father === null) {
       father = this.newPerson(undefined, undefined, true, mother, true);
+      this.addPerson(father);
     }
 
-    return {
+    const person: Person = {
       name: defaultPersonName,
       father,
       mother,
@@ -115,7 +119,11 @@ export class PersonPageService {
       male,
       ghost,
       tempId: new Date(),
-    } as Person;
+    };
+
+    this.addPerson(person);
+
+    return person;
   }
 
   public newGhostPerson(male: boolean, spouse?: Person): Person {
@@ -131,5 +139,77 @@ export class PersonPageService {
     if (removeChildrens) {
       person.childrens = [];
     }
+  }
+
+  public buildPersonsMap(persons: Person[]) {
+    this.personsByTempId = new Map();
+
+    for (const person of persons) {
+      this.addPerson(person);
+    }
+  }
+
+  public addPerson(p: Person) {
+    this.personsByTempId.set(p.tempId, p);
+  }
+
+  public removePerson(p: Person, removeChildrens = false) {
+    this.personsByTempId.delete(p.tempId);
+
+    if (p.spouse && !p.father.ghost) {
+      this.removePerson(p.spouse);
+    }
+
+    if (removeChildrens) {
+      this.removePersons(p.childrens, true);
+    }
+
+    if (p.father && !p.father.ghost && p.father.childrens.length < 2) {
+      this.personsByTempId.delete(p.father.tempId);
+      if (p.father.spouse != null) {
+        this.personsByTempId.delete(p.father.spouse.tempId);
+      }
+    }
+  }
+
+  public removePersons(persons: Person[], removeChildrens = false) {
+    if (persons == null) {
+      return;
+    }
+
+    persons.forEach(p => this.removePerson(p, removeChildrens));
+  }
+
+  public async save(): Promise<Person[]> {
+    const personsForSave: Person[] = Array.from(this.personsByTempId.values()).filter(p => p.father == null && p.mother == null);
+
+    const familyForSave = { ... this.family };
+    familyForSave.persons = this.removeCircularReferenceForSave(personsForSave);
+
+    this.family = await this.http.post<Family>(this.url, familyForSave).toPromise();
+
+    return this.family.persons;
+  }
+
+  private removeCircularReferenceForSave(persons: Person[]) {
+    const copy = [];
+
+    if (persons == null) {
+      return;
+    }
+
+    persons.forEach(p => {
+      p = { ...p };
+      delete p.father;
+      delete p.mother;
+      delete p.fatherId;
+      delete p.motherId;
+      delete p.tempId;
+
+      copy.push(p);
+      p.childrens = this.removeCircularReferenceForSave(p.childrens);
+    });
+
+    return copy;
   }
 }
