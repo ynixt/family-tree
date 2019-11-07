@@ -21,18 +21,24 @@ public class FamilyService {
 	@Autowired
 	private FamilyRepository familyRepository;
 
-	@PersistenceContext
-	private EntityManager entityManager;
-
 	public FamilyDto save(FamilyForSaveDto dto) {
-		final Family f = FamilyForSaveDto.toDomain(dto);
+		Family f = FamilyForSaveDto.toDomain(dto);
 
-		f.getPersons().forEach(p -> fixReferencesForSave(p, f, null));
-		
+		for (Person p : f.getPersons()) {
+			fixReferencesForSave(p, null);
+		}
+
 		Set<Person> allPersonsForSave = getPersonsForSave(f.getPersons());
-		
+
 		f.getPersons().clear();
+
+		if (f.getId() == null) {
+			f = this.familyRepository.save(f);
+		}
+
 		f.getPersons().addAll(allPersonsForSave);
+		
+		setFamilyOnPersons(f);
 
 		return get(this.familyRepository.save(f).getId());
 	}
@@ -41,20 +47,21 @@ public class FamilyService {
 		return FamilyDto.fromEntity(this.familyRepository.get(familyId));
 	}
 
-	private void fixReferencesForSave(Person p, Family f, Person father) {
-		p.setFamily(f);
+	private void setFamilyOnPersons(Family f) {
+		for (Person p : f.getPersons()) {
+			p.setFamily(f);
+		}
+	}
 
+	private void fixReferencesForSave(Person p, Person father) {
 		if (father != null) {
 			p.setMother(father.getSpouse());
-			if(father.getSpouse() != null) {
-				father.getSpouse().setFamily(f);
-			}
 			p.setFather(father);
 		}
 
 		if (p.getChildrens() != null) {
 			p.getChildrens().forEach(c -> {
-				fixReferencesForSave(c, f, p);
+				fixReferencesForSave(c, p);
 			});
 		}
 	}
