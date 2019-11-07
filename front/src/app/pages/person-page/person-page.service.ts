@@ -23,6 +23,10 @@ export class PersonPageService {
   ) {
   }
 
+  public clearPersonsByTempId() {
+    this.personsByTempId = new Map();
+  }
+
   public async getPersonsOfFamily(idFamily: number): Promise<Person[]> {
     this.family = await this.http.get<Family>(`${this.url}${idFamily}`).toPromise();
 
@@ -123,6 +127,13 @@ export class PersonPageService {
       ghost,
       tempId: new Date(),
     };
+
+    if (father) {
+      if (father.childrens == null) {
+        father.childrens = [];
+      }
+      father.childrens.push(person);
+    }
 
     this.addPerson(person);
 

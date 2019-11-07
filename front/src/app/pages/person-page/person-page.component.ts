@@ -38,6 +38,7 @@ export class PersonPageComponent implements OnInit {
 
     this.route.data.subscribe(data => {
       if (data.new === true) {
+        this.service.clearPersonsByTempId();
         this.person$ = this.service.newPerson(null, null, true);
         this.personLoaded$ = true;
       } else {
