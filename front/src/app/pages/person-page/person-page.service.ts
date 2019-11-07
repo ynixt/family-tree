@@ -4,6 +4,7 @@ import { HttpClient, } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import Person from 'src/app/pages/person-page/person';
 import Family from './family';
+import { DatePipe } from '@angular/common';
 
 export const defaultPersonName = 'Desconhecido';
 
@@ -18,6 +19,7 @@ export class PersonPageService {
   constructor(
     private http: HttpClient,
     public zone: NgZone,
+    private datePipe: DatePipe
   ) {
   }
 
@@ -30,6 +32,7 @@ export class PersonPageService {
 
     for (const person of this.family.persons) {
       person.tempId = new Date();
+      this.dateForShow(person);
     }
 
     return this.family.persons;
@@ -188,6 +191,8 @@ export class PersonPageService {
 
     this.family = await this.http.post<Family>(this.url, familyForSave).toPromise();
 
+    this.family.persons.forEach(p => this.dateForShow(p));
+
     return this.family.persons;
   }
 
@@ -206,10 +211,36 @@ export class PersonPageService {
       delete p.motherId;
       delete p.tempId;
 
+
+      p.birth = this.dateForSave(p.birth);
+      p.death = this.dateForSave(p.death);
+
+      if (p.spouse) {
+        p.spouse.birth = this.dateForSave(p.spouse.birth);
+        p.spouse.death = this.dateForSave(p.spouse.death);
+      }
+
       copy.push(p);
       p.childrens = this.removeCircularReferenceForSave(p.childrens);
     });
 
     return copy;
+  }
+
+  private dateForShow(person: Person) {
+    if (person.birth) {
+      person.birth = new Date(person.birth);
+    }
+    if (person.death) {
+      person.death = new Date(person.death);
+    }
+  }
+
+  private dateForSave(date): string {
+    if (date == null) {
+      return null;
+    }
+
+    return this.datePipe.transform(date, `yyyy-MM-dd'T'HH:mm:ss.SSSZ`);
   }
 }

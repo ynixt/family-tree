@@ -186,6 +186,25 @@
         }
     }
 
+    .details {
+        input {
+            background: none;
+            border: none;
+            color: #666;
+            width: 60px;
+
+            &:active,
+            &:focus {
+                outline: none;
+            }
+        }
+
+        input ~ input {
+            border-left: black 1px solid;
+            padding-left: 5px;
+            width: 65px;
+        }
+    }
 
     .btn-save {
         position: fixed;

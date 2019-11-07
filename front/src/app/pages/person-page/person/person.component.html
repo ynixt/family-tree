@@ -9,9 +9,8 @@
                 </select>
             </p>
             <p class="details">
-                <span *ngIf="person.birth != null">{{person.birth | date:'dd/MM/yyyy'}}</span>
-                <span *ngIf="person.birth == null">*</span>
-                <span *ngIf="person.death != null"> - {{person.death | date:'dd/MM/yyyy'}}</span>
+                <input type="text" placeholder="Datepicker" bsDatepicker [(bsValue)]="person.birth">
+                <input type="text" placeholder="Datepicker" bsDatepicker [(bsValue)]="person.death">
             </p>
             <app-action-buttons [removeFunction]="remove.bind(this)" [person]="person" [actionAdd]="actionAdd">
             </app-action-buttons>
@@ -26,6 +25,7 @@
                 </select>
             </p>
             <p class="details">
+
                 <span *ngIf="person.spouse.birth != null">{{person.spouse.birth | date:'dd/MM/yyyy'}}</span>
                 <span *ngIf="person.spouse.birth == null">*</span>
                 <span *ngIf="person.spouse.death != null"> - {{person.spouse.death | date:'dd/MM/yyyy'}}</span>

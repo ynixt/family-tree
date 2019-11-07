@@ -6,8 +6,8 @@ export default interface Person {
     ghost?: boolean;
     male?: boolean;
     name?: string;
-    birth?: Date;
-    death?: Date;
+    birth?: Date|string;
+    death?: Date|string;
     childrens?: Person[];
     spouse?: Person;
     spouseId?: number;
