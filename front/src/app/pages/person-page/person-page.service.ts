@@ -54,6 +54,11 @@ export class PersonPageService {
     return this.getFirstGhost(persons);
   }
 
+  /**
+   * Corrige as referências necessárias para conseguir exibir a árvore
+   * @param persons 
+   * @param personsById 
+   */
   private fixReferences(persons: Person[], personsById: Map<number, Person>) {
     for (const person of persons) {
       if (person.name == null) {
@@ -77,6 +82,11 @@ export class PersonPageService {
     }
   }
 
+  /**
+   * Obtém a cabeça invisível da árvore. Essa cabeça é usada para conseguir adicionar irmãos mesmo
+   * sem haveru m pai.
+   * @param persons 
+   */
   private getFirstGhost(persons: Person[]): Person {
     const ghost = persons.map(p => {
       return {
@@ -144,6 +154,11 @@ export class PersonPageService {
     return this.newPerson(undefined, undefined, male, spouse, true);
   }
 
+  /**
+   * Retorna as informações daquela pessoa para as informações default
+   * @param person Pessoa a ser resetada
+   * @param removeChildrens Caso true a pessoa também perderá todos os filhos
+   */
   public resetPerson(person: Person, removeChildrens = false) {
     person.birth = null;
     person.death = null;
@@ -167,6 +182,11 @@ export class PersonPageService {
     this.personsByTempId.set(p.tempId, p);
   }
 
+  /**
+   * Remove uma pessoa da árvore
+   * @param p Pessoa a ser removida
+   * @param removeChildrens Caso true remove também seus filhos
+   */
   public removePerson(p: Person, removeChildrens = false) {
     this.personsByTempId.delete(p.tempId);
 
@@ -207,6 +227,11 @@ export class PersonPageService {
     return this.family.persons;
   }
 
+  /**
+   * Para conseguir converter em JSON não pode ter relacionamentos circulares.
+   * Sendo assim ao salvar é necessário matar esses relacionamentos.
+   * @param persons
+   */
   private removeCircularReferenceForSave(persons: Person[]) {
     const copy = [];
 
@@ -238,6 +263,10 @@ export class PersonPageService {
     return copy;
   }
 
+  /**
+   * Converte as datas de uma pessoa para Date para que o componente de datepicker consiga exibi-la.
+   * @param person Pessoa "dona" das datas
+   */
   private dateForShow(person: Person) {
     if (person.birth) {
       person.birth = new Date(person.birth);
@@ -247,6 +276,10 @@ export class PersonPageService {
     }
   }
 
+  /**
+   * Converte uma data para o formato que é aceito pelo Jackson
+   * @param date Data a ser convertida
+   */
   private dateForSave(date): string {
     if (date == null) {
       return null;
