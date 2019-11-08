@@ -18,6 +18,10 @@ configurations {
 	}
 }
 
+jar {
+     project.version=""
+}
+
 repositories {
 	mavenCentral()
 }

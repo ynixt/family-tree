@@ -1,0 +1,47 @@
+version: "3.5"
+
+services:
+
+  angular:
+    container_name: angular
+    build:
+      context: ./front
+      dockerfile: ./Dockerfile
+    volumes:
+      - dist:/app/dist
+
+  nginx:
+    image: nginx:1.17-alpine
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/nginx.conf
+      - ./config/mime.types:/etc/nginx/mime.types
+      - dist:/var/www/dist
+    ports:
+      - 80:80
+    environment:
+      NGINX_PORT: 80
+    networks:
+      - backend
+      - ng
+    depends_on:
+      - api
+
+  api:
+    container_name: api
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    ports:
+      - 8080:8080
+    networks:
+      - backend
+
+networks:
+  backend:
+  ng:
+
+volumes:
+  dist:
+#     driver: local
+#   db-backup:
+#     driver: local
