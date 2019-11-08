@@ -9,10 +9,12 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { HomePageModule } from './pages/home-page/home-page.module';
 import { RouterModule } from '@angular/router';
+import { Error404PageComponent } from './pages/erros/error404-page/error404-page.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    Error404PageComponent
   ],
   imports: [
     BrowserModule,
