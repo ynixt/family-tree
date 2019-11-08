@@ -1,10 +1,29 @@
-Simples sistema de árvore genealógica feito em Spring, Angular, H2, Nginx, Docker.
+##Sobre
+
+Simples sistema de árvore genealógica.
+
+###Tecnologias
+- Spring Boot
+	- Flyway
+- Angular
+	- NGX Bootstrap
+- H2
+- Docker
+	- Nginx
+
+###Seções
 
 O sistema foi dividido nas seções:
-- front: parte Angular
-- backend: parte Spring
-- config: Configurações do nginx
+- front: frontend feito em **Angular**
+- backend: backend feito em **Spring**
+- config: configurações do **Nginx**
 
+##Iniciando a aplicação
 
-Para subir a aplicação utilize o docker compose:
-`docker-compose up`
+### Separadamente
+
+- [Frontend](https://github.com/ynixt/family-tree/tree/master/front "Frontend")
+- [Backend](https://github.com/ynixt/family-tree/tree/master/backend "Backend")
+
+### Docker
+Compose: `docker-compose up`
