@@ -97,7 +97,7 @@ export class PersonComponent implements OnInit {
     if (person.childrens == null) {
       person.childrens = [];
     }
-    person.childrens.push(this.service.newPerson(person, person.spouse ? person.spouse : {}, true));
+    this.service.newPerson(person, person.spouse ? person.spouse : undefined, true);
   }
   private newSpouse(person = this.person) {
     person.spouse = this.service.newPerson(undefined, undefined, false);
