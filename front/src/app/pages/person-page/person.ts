@@ -1,8 +1,5 @@
-import Marriage from './marriage';
-
 export default interface Person {
     id?: number;
-    // familyId: number;
     ghost?: boolean;
     male?: boolean;
     name?: string;
@@ -11,7 +8,6 @@ export default interface Person {
     childrens?: Person[];
     spouse?: Person;
     spouseId?: number;
-    marriage?: Marriage;
     fatherId?: number;
     motherId?: number;
     father?: Person;
