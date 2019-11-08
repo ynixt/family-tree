@@ -84,7 +84,7 @@ export class PersonPageService {
 
   /**
    * Obtém a cabeça invisível da árvore. Essa cabeça é usada para conseguir adicionar irmãos mesmo
-   * sem haveru m pai.
+   * sem haver um pai.
    * @param persons 
    */
   private getFirstGhost(persons: Person[]): Person {

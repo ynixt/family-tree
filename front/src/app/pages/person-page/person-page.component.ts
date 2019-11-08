@@ -33,6 +33,11 @@ export class PersonPageComponent implements OnInit {
     this.loadPerson();
   }
 
+  /**
+   * Carrega a pessoa inicial da árvore.
+   * Caso a página atual seja a página de "criar nova árvore" então essa pessoa será uma pessoa com valores default.
+   * Caso contrário uma requisição será efetuada para obter a pessoa através de sua família.
+   */
   private async loadPerson() {
     this.personLoaded$ = false;
 
@@ -42,12 +47,12 @@ export class PersonPageComponent implements OnInit {
         this.person$ = this.service.newPerson(null, null, true);
         this.personLoaded$ = true;
       } else {
-        this.loadPersonByFamilyId();
+        this.loadPersonByFamilyIdOnParams();
       }
     });
   }
 
-  private async loadPersonByFamilyId() {
+  private async loadPersonByFamilyIdOnParams() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
 
     if (Number.isNaN(id) === false) {
@@ -60,6 +65,10 @@ export class PersonPageComponent implements OnInit {
     }
   }
 
+  /**
+   * Callback disparado quando a primeira pessoa da árvore é trocada
+   * @param person 
+   */
   public firstForTreeChanged(person) {
     this.person$ = person;
   }
