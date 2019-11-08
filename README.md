@@ -2,6 +2,8 @@
 
 Simples sistema de árvore genealógica.
 
+[![Árvore Genealógica](https://github.com/ynixt/family-tree/blob/master/pictures/%C3%A1rvore.png "Árvore Genealógica")](https://github.com/ynixt/family-tree/blob/master/pictures/%C3%A1rvore.png "Árvore Genealógica")
+
 ### Tecnologias
 - Spring Boot
 	- Flyway
