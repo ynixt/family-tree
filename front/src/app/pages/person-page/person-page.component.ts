@@ -67,6 +67,7 @@ export class PersonPageComponent implements OnInit {
   public async save() {
     try {
       this.person$ = this.service.getFirstForTree(await this.service.save());
+      alert("Salvo com sucesso");
     } catch (err) {
       console.log(err);
       alert('Um erro aconteceu. Tente novamente mais tarde.');
