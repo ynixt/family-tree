@@ -1,8 +1,8 @@
-##Sobre
+# Sobre
 
 Simples sistema de árvore genealógica.
 
-###Tecnologias
+### Tecnologias
 - Spring Boot
 	- Flyway
 - Angular
@@ -11,14 +11,14 @@ Simples sistema de árvore genealógica.
 - Docker
 	- Nginx
 
-###Seções
+### Seções
 
 O sistema foi dividido nas seções:
 - front: frontend feito em **Angular**
 - backend: backend feito em **Spring**
 - config: configurações do **Nginx**
 
-##Iniciando a aplicação
+## Iniciando a aplicação
 
 ### Separadamente
 
